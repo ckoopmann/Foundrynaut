@@ -11,8 +11,9 @@ contract RecoveryScript is Script {
 
 
     function setUp() public {
-        address tokenAddress = keccak256(levelAddress, 0);
-        token = SimpleToken(tokenAddress);
+        uint256 nonce = 0;
+        address tokenAddress = address(uint(keccak256(abi.encodePacked(levelAddress, nonce))));
+        token = SimpleToken(payable(tokenAddress));
     }
 
     function run() public {

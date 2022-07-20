@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import { EthernautScript } from "../common/EthernautScript.sol";
-import { Instance } from "./Problem.sol";
+import { EthernautScript } from "src/common/EthernautScript.sol";
+import { Instance } from "../Problem.sol";
 
-contract HelloEthernautScript is EthernautScript {
+contract SolutionScript is EthernautScript {
 
     function solve(address payable _instanceAddress) internal override {
         vm.startBroadcast();

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import "forge-std/Script.sol";
+import "forge-std/Test.sol";
 import { IEthernaut } from "../common/IEthernaut.sol";
 import { ILevel } from "../common/ILevel.sol";
 
 // TODO: Originally wanted to make this abstract but then forge failed with "compiled contract not found" - Investigate
-contract EthernautScript is Script {
+contract EthernautScript is Test {
 
     IEthernaut constant ethernaut= IEthernaut(0xD991431D8b033ddCb84dAD257f4821E9d5b38C33);
 

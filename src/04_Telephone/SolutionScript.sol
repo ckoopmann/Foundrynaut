@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 
 import { Script } from "forge-std/Script.sol";
 import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Telephone } from "../Problem.sol";
+import { Telephone } from "./Problem.sol";
 
 contract TelephoneSolution {
     function changeOwner(Telephone _phone, address _newOwner) external {

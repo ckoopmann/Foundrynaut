@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 
 import { Script } from "forge-std/Script.sol";
 import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Reentrance } from "../Problem.sol";
+import { Reentrance } from "./Problem.sol";
 
 contract Solution {
 

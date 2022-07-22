@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: Run Reference solutions
+    name: Simulate solutions
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,8 +27,8 @@ jobs:
           version: nightly
 
       - name: Run Forge Scripts
-        run:  sh run_all_reference_solutions.sh
-        id: run-reference-solutions
+        run:  sh run_all_solutions.sh
+        id: run-solutions
         env:
           FORK_URL: ${{ secrets.FORK_URL }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}

@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 
 import { Script } from "forge-std/Script.sol";
 import { EthernautScript } from "src/common/EthernautScript.sol";
-import { CoinFlip } from "../Problem.sol";
+import { CoinFlip } from "./Problem.sol";
 import 'openzeppelin-contracts/math/SafeMath.sol';
 
 contract CoinFlipSolution {

@@ -2,7 +2,7 @@
 pragma solidity ^0.6.0;
 
 import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Fallback } from "../Problem.sol";
+import { Fallback } from "./Problem.sol";
 
 contract SolutionScript is EthernautScript {
 

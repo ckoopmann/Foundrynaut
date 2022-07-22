@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 
 import { Script } from "forge-std/Script.sol";
 import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Force } from "../Problem.sol";
+import { Force } from "./Problem.sol";
 
 contract Solution {
     function forceSend(address payable _to) payable external {

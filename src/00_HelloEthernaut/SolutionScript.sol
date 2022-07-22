@@ -2,17 +2,20 @@
 pragma solidity ^0.6.0;
 
 import { EthernautScript } from "src/common/EthernautScript.sol";
+import { Instance } from "./Problem.sol";
 
 contract SolutionScript is EthernautScript {
 
     function solve(address payable _instanceAddress) internal override {
+        vm.startBroadcast();
+        Instance instance = Instance(_instanceAddress);
+        instance.authenticate(instance.password());
+        vm.stopBroadcast();
     }
 
     function getLevelAddress() internal view override returns(address) {
-        return 0x43BA674B4fbb8B157b7441C2187bCdD2cdF84FD5;
+        return 0x4E73b858fD5D7A5fc1c3455061dE52a53F35d966;
     }
 
-    function getCreationValue() internal view override returns(uint256) {
-        return 0.001 ether;
-    }
+
 }

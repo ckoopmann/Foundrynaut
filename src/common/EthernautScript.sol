@@ -36,16 +36,17 @@ contract EthernautScript is Test {
 
     function getInstanceAddress() internal returns(address payable) {
         address staticCaller = address(new StaticCaller());
-        return payable(abi.decode(callStatic(staticCaller, getLevelAddress(), abi.encodeWithSignature("createInstance(address)", tx.origin)), (address)));
+        return payable(abi.decode(callStatic(staticCaller, getLevelAddress(), abi.encodeWithSignature("createInstance(address)", tx.origin), getCreationValue()), (address)));
     }
 
     function callStatic(
         address staticCaller,
         address targetContract,
-        bytes memory calldataPayload
+        bytes memory calldataPayload,
+        uint256 value
     ) internal returns(bytes memory) {
         bytes memory nestedCallData = abi.encodeWithSignature("simulateAndRevert(address,bytes)", targetContract, calldataPayload);
-        (bool success, bytes memory returnData) = address(staticCaller).call(nestedCallData);
+        (bool success, bytes memory returnData) = address(staticCaller).call{value: value}(nestedCallData);
         return returnData;
     }
 
@@ -68,8 +69,8 @@ contract StaticCaller {
     function simulateAndRevert(
         address targetContract,
         bytes memory calldataPayload
-    ) external returns (bytes memory response) {
-        (,bytes memory returnData) = targetContract.call(calldataPayload);
+    ) external payable returns (bytes memory response) {
+        (,bytes memory returnData) = targetContract.call{value: msg.value}(calldataPayload);
         assembly {
             let ptr := mload(0x40)
             let size := returndatasize()

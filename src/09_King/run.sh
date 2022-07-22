@@ -1,2 +1,0 @@
-cast send --private-key $PRIVATE_KEY --rpc-url $RPC_URL --value 2000000000000000 --gas  200000 0x85828054a78fcd1a6b995c34983f8ddd70301542 "breakIt(address)" 0xaE04e55c97764EA7f299c356f6eF6Cb442A7B5E8
-

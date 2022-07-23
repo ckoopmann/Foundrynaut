@@ -26,9 +26,9 @@ contract SolutionScript is EthernautScript {
 
     function solve(address payable _instanceAddress) internal override {
         Preservation preservation = Preservation(_instanceAddress);
-        Solution solution = new Solution();
 
         vm.startBroadcast();
+        Solution solution = new Solution();
         solution.changeOwner(preservation);
         vm.stopBroadcast();
 

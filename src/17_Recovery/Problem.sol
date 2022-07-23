@@ -42,3 +42,5 @@ contract SimpleToken {
     selfdestruct(_to);
   }
 }
+
+

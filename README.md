@@ -6,4 +6,5 @@
 - Cannot `vm.expectRevert` inside forge script (Denial), also cannot `try catch` reverts in script. (leading to very ugly implementation of static call workaround)
 - (Ethernaut issue) Add revert message in denial when creating instance without providing enough funds
 - No way to test results of selfdestruct (Motorbike)
+- No abstract contract inheritance for script
 

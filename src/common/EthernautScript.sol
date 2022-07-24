@@ -66,6 +66,8 @@ contract EthernautScript is Test {
     }
 }    
 
+// I had to wrap this logic in a separate contract since forge scripts would fail when having a revert in the script contract (even when it was handled with try / catch or ignored with .call
+// TODO: Check if this can be avoided
 contract StaticCaller {
 
 

@@ -8,5 +8,5 @@ if [[ $PROBLEM_NAME == "18_MagicNumber" ]]
 then
     set -- "$@" '--ffi'  # For this problem we use an ffi command to compile yul
 fi
-forge script src/${PROBLEM_NAME}/SolutionScript.sol:SolutionScript --fork-url=$FORK_URL --private-key=$PRIVATE_KEY $@
+forge script src/problems/${PROBLEM_NAME}/SolutionScript.sol:SolutionScript --fork-url=$FORK_URL --private-key=$PRIVATE_KEY $@
 

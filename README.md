@@ -17,7 +17,7 @@ Solution to all [Ethernaut](https://ethernaut.openzeppelin.com/) problems implem
 ## Foundry Scripting issues / painpoints
 I did this mainly as an exercise to better learn foundry / forge in general and the solidity scripting feature in particular as well as evaluating it as an alternative to writing scripts in Javascript.
 While these solidity scripts have many great advantages over JS scripting I also encountered a few issues / lack of functionality compared to JS scripts (which I usually implement with `ethers.js` and `hardhat`).
-This description refers to `forge 0.2.0 (f016135 2022-07-04T00:15:02.930499Z)`, and might be fixed in later versions. (In which case feel welcome to create an issue so that I can update this list as well as my implementations)
+This description refers to `forge 0.2.0 (f016135 2022-07-04T00:15:02.930499Z)`, and might contain issues that are fixed in later versions. (In which case feel welcome to create an issue so that I can update this list as well as my implementations)
 
 ### No transaction specific gas limits
 #### Problem

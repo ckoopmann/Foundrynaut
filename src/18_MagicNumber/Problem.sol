@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.15;
+// Note: Solidity pragma changed from original
+pragma solidity >=0.6.0;
 
-contract MagicNumber {
+contract MagicNum {
 
   address public solver;
 

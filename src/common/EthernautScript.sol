@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0;
 
 import "forge-std/Test.sol";
 import { IEthernaut } from "../common/IEthernaut.sol";

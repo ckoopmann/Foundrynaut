@@ -9,6 +9,7 @@ import { ILevel } from "../common/ILevel.sol";
 contract EthernautScript is Test {
 
     IEthernaut constant ethernaut= IEthernaut(0xD991431D8b033ddCb84dAD257f4821E9d5b38C33);
+    bool validateInstance = true;
 
 
     function run() public {
@@ -28,7 +29,9 @@ contract EthernautScript is Test {
     }
 
     function submitLevel(address payable _instanceAddress) internal {
-        assert(ILevel(getLevelAddress()).validateInstance(_instanceAddress, tx.origin));
+        if(validateInstance) {
+            assert(ILevel(getLevelAddress()).validateInstance(_instanceAddress, tx.origin));
+        }
         vm.startBroadcast();
         ethernaut.submitLevelInstance(_instanceAddress);
         vm.stopBroadcast();

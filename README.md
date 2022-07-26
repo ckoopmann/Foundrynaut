@@ -33,13 +33,6 @@ Simulation of on-chain transactions behave as if all of them were included in th
 This was a problem when implementing the `CoinFlip` solution which requires each call to be on a separate block.
 To solve it in this case I had to add very ugly logic skipping parts of the implementation in the on-chain simulation step. (see [here](https://github.com/ckoopmann/Foundrynaut/blob/b9d8d29f022fcf55942d6571e50fdf0fe505d746/src/problems/03_CoinFlip/SolutionScript.sol#L20))
 
-### No `callStatic` equivalent
-#### Problem
-No static calls to state changing methods possible. (i.e. no equivalent of `ethers.js` `contract.callStatic.method()` syntax which triggers [eth_call](https://www.quicknode.com/docs/ethereum/eth_call) rpc endpoint).
-Note that, while contract calls outside of `broadcast` blocks will not actually be submitted they still change the simulated state inside the script.
-#### Workaround
-I used the pattern of throwing a revertion, ignoring that revertion and returning the revertdata, which I used to get the address of a deployed level instance [here](https://github.com/ckoopmann/Foundrynaut/blob/b9d8d29f022fcf55942d6571e50fdf0fe505d746/src/common/EthernautScript.sol#L40). (Note that I had to actually route this call through another contract to avoid below issue regarding reverts, so it is not actually equivalent to doing a `staticCall` directly from `tx.origin`)
-
 ### No top level revertion handling
 #### Problem
 Cannot catch / ignore revertions thrown in the script implementation. Revertions that are thrown in the ethernaut script directly always lead to the script aborting. I tried the following approaches none of which did the trick:

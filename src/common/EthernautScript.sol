@@ -5,15 +5,18 @@ import "forge-std/Test.sol";
 import { IEthernaut } from "../common/IEthernaut.sol";
 import { ILevel } from "../common/ILevel.sol";
 
+
 // TODO: Originally wanted to make this abstract but then forge failed with "compiled contract not found" - Investigate
 contract EthernautScript is Test {
 
-    IEthernaut constant ethernaut= IEthernaut(0xD991431D8b033ddCb84dAD257f4821E9d5b38C33);
+    IEthernaut constant ethernaut = IEthernaut(0xD991431D8b033ddCb84dAD257f4821E9d5b38C33);
     bool validateInstance = true;
 
 
     function run() public {
+        uint256 snapshot = vm.snapshot();
         address payable instanceAddress = getInstanceAddress();
+        vm.revertTo(snapshot);
 
         createLevel();
 
@@ -38,19 +41,8 @@ contract EthernautScript is Test {
     }
 
     function getInstanceAddress() internal returns(address payable) {
-        address staticCaller = address(new StaticCaller());
-        return payable(abi.decode(callStatic(staticCaller, getLevelAddress(), abi.encodeWithSignature("createInstance(address)", tx.origin), getCreationValue()), (address)));
-    }
-
-    function callStatic(
-        address staticCaller,
-        address targetContract,
-        bytes memory calldataPayload,
-        uint256 value
-    ) internal returns(bytes memory) {
-        bytes memory nestedCallData = abi.encodeWithSignature("simulateAndRevert(address,bytes)", targetContract, calldataPayload);
-        (bool success, bytes memory returnData) = address(staticCaller).call{value: value}(nestedCallData);
-        return returnData;
+        address instanceAddress = ILevel(getLevelAddress()).createInstance{value: getCreationValue()}(tx.origin);
+        return payable(instanceAddress);
     }
 
     function getLevelAddress() internal virtual view returns(address) {
@@ -65,24 +57,3 @@ contract EthernautScript is Test {
         return 0;
     }
 }    
-
-// I had to wrap this logic in a separate contract since forge scripts would fail when having a revert in the script contract (even when it was handled with try / catch or ignored with .call
-// TODO: Check if this can be avoided
-contract StaticCaller {
-
-
-    function simulateAndRevert(
-        address targetContract,
-        bytes memory calldataPayload
-    ) external payable returns (bytes memory response) {
-        (,bytes memory returnData) = targetContract.call{value: msg.value}(calldataPayload);
-        assembly {
-            let ptr := mload(0x40)
-            let size := returndatasize()
-            returndatacopy(ptr, 0, size)
-            revert(ptr, size)
-        }
-    }
-
-}
-

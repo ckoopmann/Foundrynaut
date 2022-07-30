@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import { Script } from "forge-std/Script.sol";
-import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Telephone } from "./Problem.sol";
+import {Script} from "forge-std/Script.sol";
+import {EthernautScript} from "src/common/EthernautScript.sol";
+import {Telephone} from "./Problem.sol";
 
 contract TelephoneSolution {
     function changeOwner(Telephone _phone, address _newOwner) external {
@@ -12,7 +12,6 @@ contract TelephoneSolution {
 }
 
 contract SolutionScript is EthernautScript {
-
     function solve(address payable _instanceAddress) internal override {
         vm.startBroadcast();
 
@@ -25,8 +24,7 @@ contract SolutionScript is EthernautScript {
         vm.stopBroadcast();
     }
 
-    function getLevelAddress() internal view override returns(address) {
+    function getLevelAddress() internal view override returns (address) {
         return 0x0b6F6CE4BCfB70525A31454292017F640C10c768;
     }
 }
-

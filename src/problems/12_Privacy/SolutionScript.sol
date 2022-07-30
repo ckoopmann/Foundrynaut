@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import { Script } from "forge-std/Script.sol";
-import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Privacy } from "./Problem.sol";
+import {Script} from "forge-std/Script.sol";
+import {EthernautScript} from "src/common/EthernautScript.sol";
+import {Privacy} from "./Problem.sol";
 
 contract SolutionScript is EthernautScript {
     function solve(address payable _instanceAddress) internal override {
@@ -18,11 +18,9 @@ contract SolutionScript is EthernautScript {
         vm.stopBroadcast();
 
         assert(!privacy.locked());
-
     }
 
     function getLevelAddress() internal view override returns (address) {
         return 0x11343d543778213221516D004ED82C45C3c8788B;
     }
-
 }

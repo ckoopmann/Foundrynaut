@@ -1,11 +1,10 @@
-
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
 import "ds-test/test.sol";
-import { Solution} from "./SolutionScript.sol";
-import { Gatekeeper } from "./Problem.sol";
-import 'openzeppelin-contracts/math/SafeMath.sol';
+import {Solution} from "./SolutionScript.sol";
+import {Gatekeeper} from "./Problem.sol";
+import "openzeppelin-contracts/math/SafeMath.sol";
 
 contract GatekeeperTest is DSTest {
     using SafeMath for uint256;
@@ -29,12 +28,11 @@ contract GatekeeperTest is DSTest {
         bytes8 key = bytes8(gateKeyUint);
         assert(uint32(uint64(key)) == uint16(uint64(key)));
         // Add a 1 bit in between bit 32 and 64
-        gateKeyUint = gateKeyUint + 2**33;
+        gateKeyUint = gateKeyUint + 2 ** 33;
         key = bytes8(gateKeyUint);
         assert(uint32(uint64(key)) != uint64(key));
         assert(uint32(uint64(key)) == uint16(tx.origin));
 
         solution.breakIn(gasLimit, key, gatekeeper);
     }
-
 }

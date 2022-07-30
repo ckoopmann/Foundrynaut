@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import { Script } from "forge-std/Script.sol";
-import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Denial } from "./Problem.sol";
+import {Script} from "forge-std/Script.sol";
+import {EthernautScript} from "src/common/EthernautScript.sol";
+import {Denial} from "./Problem.sol";
 
 contract Solution {
     Denial denial;
@@ -20,7 +20,6 @@ contract Solution {
 }
 
 contract SolutionScript is EthernautScript {
-
     function solve(address payable _instanceAddress) internal override {
         Denial denial = Denial(_instanceAddress);
 
@@ -37,13 +36,11 @@ contract SolutionScript is EthernautScript {
         // vm.stopPrank();
     }
 
-    function getLevelAddress() internal view override returns(address) {
+    function getLevelAddress() internal view override returns (address) {
         return 0xf1D573178225513eDAA795bE9206f7E311EeDEc3;
     }
 
-    function getCreationValue() internal view override returns(uint256) {
+    function getCreationValue() internal view override returns (uint256) {
         return 0.001 ether;
     }
-
 }
-

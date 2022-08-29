@@ -17,21 +17,7 @@ contract Solution {
     function breakIn(uint256 gasLimit, bytes8 key, Gatekeeper gatekeeper)
         external
     {
-        // I had to add this gas burning since otherwise forge script would run this transaction with gas limit set lower than the one specified in the function argument
-        // TODO: Once forge supports specifying gas per tx, remove this (as well as the rest of the contract)
-        burnGas(gasLimit);
         gatekeeper.enter{gas: gasLimit}(key);
-    }
-
-    function burnGas(uint256 gasLimit) private {
-        uint256 iterations = 30;
-        for (uint256 i = 0; i < iterations; i++) {
-            randomValue = randomValue + 1;
-            emit GasBurned(i);
-            if (gasleft().sub(gasLimit) < 50000) {
-                return;
-            }
-        }
     }
 }
 

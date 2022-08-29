@@ -1,8 +1,8 @@
 PROBLEM_NAME=$1 # save positional arg
 shift # past argument
-if [[ $PROBLEM_NAME == "03_CoinFlip" ]]
+if [[ $PROBLEM_NAME == "03_CoinFlip" ]] || [[ $PROBLEM_NAME == "13_GatekeeperOne" ]]
 then
-    set -- "$@" '--slow' # For this problem we have to make sure transactions are mined on different blocks
+    set -- "$@" '--slow' '--skip-simulation' '--gas-estimate-multiplier' '200'  # For this problem we have to make sure transactions are mined on different blocks
 fi
 if [[ $PROBLEM_NAME == "18_MagicNumber" ]]
 then

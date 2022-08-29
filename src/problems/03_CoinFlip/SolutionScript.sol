@@ -26,7 +26,7 @@ contract CoinFlipSolution {
         }
         uint256 coinFlip = blockValue.div(FACTOR);
         bool side = coinFlip == 1 ? true : false;
-        problem.flip{gas: 100000}(side);
+        problem.flip(side);
         lastBlockValue = blockValue;
     }
 }

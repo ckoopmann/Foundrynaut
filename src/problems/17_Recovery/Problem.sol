@@ -5,9 +5,7 @@ import "lib/openzeppelin-contracts/contracts/math/SafeMath.sol";
 
 contract Recovery {
     //generate tokens
-    function generateToken(string memory _name, uint256 _initialSupply)
-        public
-    {
+    function generateToken(string memory _name, uint256 _initialSupply) public {
         new SimpleToken(_name, msg.sender, _initialSupply);
     }
 }
@@ -20,9 +18,7 @@ contract SimpleToken {
     mapping(address => uint256) public balances;
 
     // constructor
-    constructor(string memory _name, address _creator, uint256 _initialSupply)
-        public
-    {
+    constructor(string memory _name, address _creator, uint256 _initialSupply) public {
         name = _name;
         balances[_creator] = _initialSupply;
     }

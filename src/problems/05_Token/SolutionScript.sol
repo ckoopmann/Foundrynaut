@@ -15,6 +15,6 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x63bE8347A617476CA461649897238A31835a32CE;
+        return _getContractAddress("5");
     }
 }

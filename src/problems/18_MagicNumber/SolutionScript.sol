@@ -14,8 +14,7 @@ contract SolutionScript is EthernautScript {
         MagicNum magicNumber = MagicNum(_instanceAddress);
 
         vm.startBroadcast();
-        address solutionAddress =
-            deployContract("src/18_MagicNumber/MagicNumberSolution.asm");
+        address solutionAddress = deployContract("src/18_MagicNumber/MagicNumberSolution.asm");
         magicNumber.setSolver(solutionAddress);
         vm.stopBroadcast();
 
@@ -24,15 +23,13 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x200d3d9Ac7bFd556057224e7aEB4161fED5608D0;
+        return _getContractAddress("18");
     }
 
     // Source: https://github.com/ControlCplusControlV/Foundry-Yulp/blob/main/src/test/lib/YulpDeployer.sol
     function deployContract(string memory fileName) public returns (address) {
-        string memory bashCommand = string.concat(
-            'cast abi-encode "f(bytes)" $(solc --yul ',
-            string.concat(fileName, " --bin | tail -1)")
-        );
+        string memory bashCommand =
+            string.concat('cast abi-encode "f(bytes)" $(solc --yul ', string.concat(fileName, " --bin | tail -1)"));
 
         string[] memory inputs = new string[](3);
         inputs[0] = "bash";
@@ -49,9 +46,7 @@ contract SolutionScript is EthernautScript {
         }
 
         ///@notice check that the deployment was successful
-        require(
-            deployedAddress != address(0), "YulDeployer could not deploy contract"
-        );
+        require(deployedAddress != address(0), "YulDeployer could not deploy contract");
 
         ///@notice return the address that the contract was deployed to
         return deployedAddress;

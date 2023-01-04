@@ -10,13 +10,7 @@ contract SolutionScript is EthernautScript {
         // Code to predict address of first contract deployed from _instanceAddress
         // Source: https://ethereum.stackexchange.com/questions/760/how-is-the-address-of-an-ethereum-contract-computed
         address tokenAddress = address(
-            uint160(
-                uint256(
-                    keccak256(
-                        abi.encodePacked(bytes1(0xd6), bytes1(0x94), _instanceAddress, bytes1(0x01))
-                    )
-                )
-            )
+            uint160(uint256(keccak256(abi.encodePacked(bytes1(0xd6), bytes1(0x94), _instanceAddress, bytes1(0x01)))))
         );
         SimpleToken token = SimpleToken(payable(tokenAddress));
 
@@ -26,7 +20,7 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x0EB8e4771ABA41B70d0cb6770e04086E5aee5aB2;
+        return _getContractAddress("17");
     }
 
     function getCreationValue() internal view override returns (uint256) {

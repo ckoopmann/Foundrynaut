@@ -13,15 +13,13 @@ contract SolutionScript is EthernautScript {
 
         vm.startBroadcast();
         naughtCoin.approve(tx.origin, naughtCoin.balanceOf(tx.origin));
-        naughtCoin.transferFrom(
-            tx.origin, receiver, naughtCoin.balanceOf(tx.origin)
-        );
+        naughtCoin.transferFrom(tx.origin, receiver, naughtCoin.balanceOf(tx.origin));
         vm.stopBroadcast();
 
         assert(naughtCoin.balanceOf(tx.origin) == 0);
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x096bb5e93a204BfD701502EB6EF266a950217218;
+        return _getContractAddress("15");
     }
 }

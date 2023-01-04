@@ -33,7 +33,7 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0xaB4F3F2644060b2D960b0d88F0a42d1D27484687;
+        return _getContractAddress("11");
     }
 
     function getCreationValue() internal view override returns (uint256) {

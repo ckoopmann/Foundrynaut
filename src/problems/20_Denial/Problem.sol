@@ -24,8 +24,7 @@ contract Denial {
         owner.transfer(amountToSend);
         // keep track of last withdrawal time
         timeLastWithdrawn = now;
-        withdrawPartnerBalances[partner] =
-            withdrawPartnerBalances[partner].add(amountToSend);
+        withdrawPartnerBalances[partner] = withdrawPartnerBalances[partner].add(amountToSend);
     }
 
     // allow deposit of funds

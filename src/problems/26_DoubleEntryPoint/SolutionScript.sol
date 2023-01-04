@@ -14,12 +14,8 @@ contract Solution is IDetectionBot {
         cryptoVaultAddress = _cryptoVaultAddress;
     }
 
-    function handleTransaction(address user, bytes calldata msgData)
-        external
-        override
-    {
-        (address to, uint256 value, address origSender) =
-            abi.decode(msgData[4:], (address, uint256, address));
+    function handleTransaction(address user, bytes calldata msgData) external override {
+        (address to, uint256 value, address origSender) = abi.decode(msgData[4:], (address, uint256, address));
 
         if (origSender == cryptoVaultAddress) {
             forta.raiseAlert(user);
@@ -39,6 +35,6 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x128BA32Ec698610f2fF8f010A7b74f9985a6D17c;
+        return _getContractAddress("26");
     }
 }

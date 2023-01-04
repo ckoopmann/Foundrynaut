@@ -33,17 +33,13 @@ contract EthernautScript is Test {
 
     function createLevel() internal {
         vm.startBroadcast();
-        ethernaut.createLevelInstance{value: getCreationValue()}(
-            getLevelAddress()
-        );
+        ethernaut.createLevelInstance{value: getCreationValue()}(getLevelAddress());
         vm.stopBroadcast();
     }
 
     function submitLevel(address payable _instanceAddress) internal {
         if (validateInstance) {
-            assert(
-                ILevel(getLevelAddress()).validateInstance(_instanceAddress, tx.origin)
-            );
+            assert(ILevel(getLevelAddress()).validateInstance(_instanceAddress, tx.origin));
         }
         vm.startBroadcast();
         ethernaut.submitLevelInstance(_instanceAddress);
@@ -51,9 +47,7 @@ contract EthernautScript is Test {
     }
 
     function getInstanceAddress() internal returns (address payable) {
-        address instanceAddress = ILevel(getLevelAddress()).createInstance{
-            value: getCreationValue()
-        }(tx.origin);
+        address instanceAddress = ILevel(getLevelAddress()).createInstance{value: getCreationValue()}(tx.origin);
         return payable(instanceAddress);
     }
 

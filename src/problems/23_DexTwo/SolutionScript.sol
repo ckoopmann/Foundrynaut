@@ -28,10 +28,7 @@ contract Solution {
         }
     }
 
-    function transferFrom(address _from, address _to, uint256 _amount)
-        public
-        returns (bool)
-    {
+    function transferFrom(address _from, address _to, uint256 _amount) public returns (bool) {
         return true;
     }
 
@@ -57,6 +54,6 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x5026Ff8C97303951c255D3a7FDCd5a1d0EF4a81a;
+        return _getContractAddress("23");
     }
 }

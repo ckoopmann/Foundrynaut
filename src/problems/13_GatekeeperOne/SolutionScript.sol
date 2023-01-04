@@ -14,9 +14,7 @@ contract Solution {
 
     event GasBurned(uint256 indexed iteration);
 
-    function breakIn(uint256 gasLimit, bytes8 key, Gatekeeper gatekeeper)
-        external
-    {
+    function breakIn(uint256 gasLimit, bytes8 key, Gatekeeper gatekeeper) external {
         gatekeeper.enter{gas: gasLimit}(key);
     }
 }
@@ -49,7 +47,7 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x9b261b23cE149422DE75907C6ac0C30cEc4e652A;
+        return _getContractAddress("13");
     }
 
     function getCreationValue() internal view override returns (uint256) {

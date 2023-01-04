@@ -7,9 +7,17 @@ import {ILevel} from "../common/ILevel.sol";
 
 // TODO: Originally wanted to make this abstract but then forge failed with "compiled contract not found" - Investigate
 contract EthernautScript is Test {
-    IEthernaut constant ethernaut =
-        IEthernaut(0xD991431D8b033ddCb84dAD257f4821E9d5b38C33);
+    IEthernaut ethernaut;
     bool validateInstance = true;
+
+    function setUp() public {
+        ethernaut = IEthernaut(_getContractAddress("ethernaut"));
+    }
+
+    function _getContractAddress(string memory contractName) internal view returns (address) {
+        string memory addresses = vm.readFile("deployments/goerli.json");
+        return abi.decode(vm.parseJson(addresses, contractName), (address));
+    }
 
     function run() public {
         uint256 snapshot = vm.snapshot();

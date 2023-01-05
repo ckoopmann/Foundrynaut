@@ -14,6 +14,12 @@ Solution to all [Ethernaut](https://ethernaut.openzeppelin.com/) problems implem
 
 (both commands need to be run from the root of this repository)
 
+By default the solutions are run against the ethernaut contracts deployed on "goerli" however you can run any of the other supported networks by specifying the respective deployment/address file from the `deployments` folder. In that case you will have to also adjust your `FORK_URL` to point to an RPC node on the respective network.
+
+For example to run the solutions againt sepolia simply run:
+`DEPLOYMENT_FILE="deployments/sepolia.json" sh run_all_solutions.sh`
+
+
 ## Foundry Scripting issues / painpoints
 One purpose of this project was to evaluate foundry's solidity scripts as an alternative to Javascript scripts.
 Despite the many advantages there were also a few issues / lack of functionality compared to my JS setup (using `ethers.js` and `hardhat`).

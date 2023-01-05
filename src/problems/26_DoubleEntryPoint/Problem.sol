@@ -5,9 +5,7 @@ import "openzeppelin-contracts/access/Ownable.sol";
 import "openzeppelin-contracts/token/ERC20/ERC20.sol";
 
 interface DelegateERC20 {
-    function delegateTransfer(address to, uint256 value, address origSender)
-        external
-        returns (bool);
+    function delegateTransfer(address to, uint256 value, address origSender) external returns (bool);
 }
 
 interface IDetectionBot {
@@ -25,10 +23,7 @@ contract Forta is IForta {
     mapping(address => uint256) public botRaisedAlerts;
 
     function setDetectionBot(address detectionBotAddress) external override {
-        require(
-            address(usersDetectionBots[msg.sender]) == address(0),
-            "DetectionBot already set"
-        );
+        require(address(usersDetectionBots[msg.sender]) == address(0), "DetectionBot already set");
         usersDetectionBots[msg.sender] = IDetectionBot(detectionBotAddress);
     }
 
@@ -79,18 +74,11 @@ contract LegacyToken is ERC20("LegacyToken", "LGT"), Ownable {
         _mint(to, amount);
     }
 
-    function delegateToNewContract(DelegateERC20 newContract)
-        public
-        onlyOwner
-    {
+    function delegateToNewContract(DelegateERC20 newContract) public onlyOwner {
         delegate = newContract;
     }
 
-    function transfer(address to, uint256 value)
-        public
-        override
-        returns (bool)
-    {
+    function transfer(address to, uint256 value) public override returns (bool) {
         if (address(delegate) == address(0)) {
             return super.transfer(to, value);
         } else {
@@ -99,24 +87,13 @@ contract LegacyToken is ERC20("LegacyToken", "LGT"), Ownable {
     }
 }
 
-contract DoubleEntryPoint is
-    ERC20("DoubleEntryPointToken", "DET"),
-    DelegateERC20,
-    Ownable
-{
+contract DoubleEntryPoint is ERC20("DoubleEntryPointToken", "DET"), DelegateERC20, Ownable {
     address public cryptoVault;
     address public player;
     address public delegatedFrom;
     Forta public forta;
 
-    constructor(
-        address legacyToken,
-        address vaultAddress,
-        address fortaAddress,
-        address playerAddress
-    )
-        public
-    {
+    constructor(address legacyToken, address vaultAddress, address fortaAddress, address playerAddress) public {
         delegatedFrom = legacyToken;
         forta = Forta(fortaAddress);
         player = playerAddress;

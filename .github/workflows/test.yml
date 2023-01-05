@@ -24,12 +24,21 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: nightly-307576dfb9e94536177e940c2710045ada69d8d7 
+          version: nightly-64ed497d576b43084641c74c777d2b461409f501
 
-      - name: Run Forge Scripts
+      - name: Run Solutions (goerli)
         run:  sh run_all_solutions.sh
-        id: run-solutions
+        id: run-solutions-goerli
         env:
-          FORK_URL: ${{ secrets.FORK_URL }}
+          FORK_URL: ${{ secrets.GOERLI_URL }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}
+
+      - name: Run Solutions (sepolia)
+        run:  sh run_all_solutions.sh
+        id: run-solutions-sepolia
+        env:
+          FORK_URL: ${{ secrets.SEPOLIA_URL }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}
+          DEPLOYMENT_FILE: deployments/sepolia.json
+
 

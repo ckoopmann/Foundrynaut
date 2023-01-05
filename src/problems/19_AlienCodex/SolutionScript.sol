@@ -49,27 +49,22 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0xda5b3Fb76C78b6EdEE6BE8F11a1c31EcfB02b272;
+        return _getContractAddress("19");
     }
 
     // @dev Calculates the array index to reach given storage index
     // @dev Inspired by: https://medium.com/@fifiteen82726/solidity-attack-array-underflow-1dc67163948a#:~:text=An%20underflow%20error%20occurs%20when,is%20undefined%20in%20many%20languages.
     // @param _arrayStorageIndex      Storage index at which the array starts
     // @param _targetStorageIndex     Storage index of the value we want to change via the array
-    function _calculateArrayIndex(
-        uint256 _targetStorageIndex,
-        uint256 _arrayStorageIndex
-    )
+    function _calculateArrayIndex(uint256 _targetStorageIndex, uint256 _arrayStorageIndex)
         public
         view
         returns (uint256)
     {
-        bytes memory arrayStorageIndexBytes =
-            abi.encodePacked(_arrayStorageIndex);
+        bytes memory arrayStorageIndexBytes = abi.encodePacked(_arrayStorageIndex);
         bytes32 arrayStorageLocationBytes = keccak256(arrayStorageIndexBytes);
         uint256 arrayStorageLocationUint = uint256(arrayStorageLocationBytes);
-        uint256 arrayIndex =
-            type(uint256).max - arrayStorageLocationUint + _targetStorageIndex + 1;
+        uint256 arrayIndex = type(uint256).max - arrayStorageLocationUint + _targetStorageIndex + 1;
         return arrayIndex;
     }
 }

@@ -9,8 +9,7 @@ import "openzeppelin-contracts/math/SafeMath.sol";
 contract CoinFlipSolution {
     using SafeMath for uint256;
 
-    uint256 FACTOR =
-        57896044618658097711785492504343953926634992332820282019728792003956564819968;
+    uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;
     uint256 lastBlockValue;
 
     event GasBurned(uint256 indexed iteration);
@@ -55,6 +54,6 @@ contract SolutionScript is EthernautScript {
     }
 
     function getLevelAddress() internal view override returns (address) {
-        return 0x4dF32584890A0026e56f7535d0f2C6486753624f;
+        return _getContractAddress("3");
     }
 }

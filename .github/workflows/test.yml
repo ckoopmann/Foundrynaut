@@ -24,7 +24,7 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@master
         with:
-          version: nightly-159f6299567c0712827435cf090885dcfb79c3d0
+          version: nightly
 
       - name: Run Forge Scripts
         run:  sh run_all_solutions.sh

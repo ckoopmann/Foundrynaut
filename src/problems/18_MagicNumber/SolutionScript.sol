@@ -14,7 +14,7 @@ contract SolutionScript is EthernautScript {
         MagicNum magicNumber = MagicNum(_instanceAddress);
 
         vm.startBroadcast();
-        address solutionAddress = deployContract("src/18_MagicNumber/MagicNumberSolution.asm");
+        address solutionAddress = deployContract("src/problems/18_MagicNumber/MagicNumberSolution.asm");
         magicNumber.setSolver(solutionAddress);
         vm.stopBroadcast();
 

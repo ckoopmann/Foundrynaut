@@ -22,7 +22,7 @@ jobs:
           submodules: recursive
 
       - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@master
+        uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly-64ed497d576b43084641c74c777d2b461409f501
 

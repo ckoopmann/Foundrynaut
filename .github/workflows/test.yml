@@ -37,7 +37,7 @@ jobs:
         run:  sh run_all_solutions.sh
         id: run-solutions-sepolia
         env:
-          FORK_URL: ${{ secrets.GOERLI_URL }}
+          FORK_URL: ${{ secrets.SEPOLIA_URL }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}
           DEPLOYMENT_FILE: deployments/sepolia.json
 

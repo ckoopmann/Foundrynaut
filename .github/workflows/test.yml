@@ -28,14 +28,14 @@ jobs:
 
       - name: Run Solutions (goerli)
         run:  sh run_all_solutions.sh
-        id: run-solutions
+        id: run-solutions-goerli
         env:
           FORK_URL: ${{ secrets.GOERLI_URL }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}
 
       - name: Run Solutions (sepolia)
         run:  sh run_all_solutions.sh
-        id: run-solutions
+        id: run-solutions-sepolia
         env:
           FORK_URL: ${{ secrets.GOERLI_URL }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}

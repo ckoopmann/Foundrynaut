@@ -26,10 +26,19 @@ jobs:
         with:
           version: nightly-64ed497d576b43084641c74c777d2b461409f501
 
-      - name: Run Forge Scripts
+      - name: Run Solutions (goerli)
         run:  sh run_all_solutions.sh
         id: run-solutions
         env:
-          FORK_URL: ${{ secrets.FORK_URL }}
+          FORK_URL: ${{ secrets.GOERLI_URL }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}
+
+      - name: Run Solutions (sepolia)
+        run:  sh run_all_solutions.sh
+        id: run-solutions
+        env:
+          FORK_URL: ${{ secrets.GOERLI_URL }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}
+          DEPLOYMENT_FILE: deployments/sepolia.json
+
 

@@ -9,13 +9,17 @@ import {ILevel} from "../common/ILevel.sol";
 contract EthernautScript is Test {
     IEthernaut ethernaut;
     bool validateInstance = true;
+    string addresses;
 
     function setUp() public {
+        string memory defaultFile = "deployments/goerli.json";
+        string memory networkFile = vm.envOr("DEPLOYMENT_FILE", defaultFile);
+        emit log_named_string("Using deployment file", networkFile);
+        addresses = vm.readFile(networkFile);
         ethernaut = IEthernaut(_getContractAddress("ethernaut"));
     }
 
     function _getContractAddress(string memory contractName) internal view returns (address) {
-        string memory addresses = vm.readFile("deployments/goerli.json");
         return abi.decode(vm.parseJson(addresses, contractName), (address));
     }
 
